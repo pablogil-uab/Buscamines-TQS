@@ -160,6 +160,35 @@ class TaulerTest {
 	    assertTrue(tauler.getCasella(0, 0).getEsVisible(), "La casilla (0, 0) debe mostrarse.");
 	    assertFalse(tauler.getCasella(1, 1).getEsVisible(), "La casilla (1, 1) no debe mostrarse automáticamente.");
 	}
+	@Test
+	void testConstructorInvalidWidth() {
+	    assertThrows(AssertionError.class, () -> new Tauler(0, 5, 10), "La amplada debe ser mayor que 0");
+	}
+
+	@Test
+	void testConstructorInvalidHeight() {
+	    assertThrows(AssertionError.class, () -> new Tauler(5, 0, 10), "La altura debe ser mayor que 0");
+	}
+
+	@Test
+	void testConstructorInvalidMinesNegative() {
+	    assertThrows(AssertionError.class, () -> new Tauler(5, 5, -1), "El número de minas debe ser no negativo");
+	}
+
+	@Test
+	void testConstructorInvalidMinesExceeding() {
+	    assertThrows(AssertionError.class, () -> new Tauler(5, 5, 30), "El número de minas no puede exceder el total de casillas");
+	}
+
+	
+	
+	@Test
+	void testConstructorValid() {
+	    Tauler tauler = new Tauler(5, 5, 0); // Dimensiones válidas
+	    assertEquals(5, tauler.getAmplada());
+	    assertEquals(5, tauler.getAltura());
+	    assertEquals(0, tauler.getBombCount());
+	}
 	
 	
 	@Test
@@ -181,13 +210,7 @@ class TaulerTest {
 	}
 	
 	
-	void testRevelaCasellesPropagacioMultiple() {
-	    tauler.mostrarCasella(0, 0);
-	    assertTrue(tauler.getCasella(0, 0).getEsVisible(), "La casilla inicial debe mostrarse.");
-	    assertTrue(tauler.getCasella(1, 1).getEsVisible(), "Las casillas vacías adyacentes deben propagarse.");
-	    assertTrue(tauler.getCasella(2, 2).getEsVisible(), "La propagación debe continuar si no hay bombas cercanas.");
-	}
-	
+
 	@Test
 	void testGetCasellesMostradesInitial() {
 	    assertEquals(0, tauler.getCasellesMostrades(), "Inicialmente no debe haber casillas mostradas.");
@@ -260,14 +283,115 @@ class TaulerTest {
 	}
 	
 	
+	@Test
+	void testSetRandomBombsZeroIterations() {
+	    Tauler emptyTauler = new Tauler(5, 5, 0); // Tablero sin minas
+	    emptyTauler.setRandomBombs();
+	    assertEquals(0, emptyTauler.getBombCount(), "No debe haber bombas colocadas.");
+	}
+	
+	@Test
+	void testSetRandomBombsOneIteration() {
+	    Tauler singleBombTauler = new Tauler(5, 5, 1); // Tablero con 1 mina
+	    singleBombTauler.setRandomBombs();
+	    assertEquals(1, singleBombTauler.getBombCount(), "Debe haber exactamente 1 bomba colocada.");
+	}
+	@Test
+	void testSetRandomBombsMultipleIterations() {
+	    tauler.setRandomBombs(); // El tablero inicial es 5x5 con 10 minas
+	    assertEquals(10, tauler.getBombCount(), "Debe haber exactamente 10 bombas colocadas.");
+	    
+	    // Validamos que las minas estén en posiciones diferentes
+	    int bombCount = 0;
+	    for (int y = 0; y < tauler.getAltura(); y++) {
+	        for (int x = 0; x < tauler.getAmplada(); x++) {
+	            if (tauler.isBomb(x, y)) bombCount++;
+	        }
+	    }
+	    assertEquals(10, bombCount, "Las minas no deben superponerse.");
+	}
+	
+	@Test
+	void testSetRandomBombsMaxIterations() {
+	    Tauler fullBombTauler = new Tauler(5, 5, 25); // Tablero completamente lleno de minas
+	    fullBombTauler.setRandomBombs();
+	    assertEquals(25, fullBombTauler.getBombCount(), "Debe haber exactamente 25 bombas, una por cada casilla.");
+	    
+	    // Validamos que todas las casillas son bombas
+	    for (int y = 0; y < fullBombTauler.getAltura(); y++) {
+	        for (int x = 0; x < fullBombTauler.getAmplada(); x++) {
+	            assertTrue(fullBombTauler.isBomb(x, y), "Cada casilla debe ser una bomba.");
+	        }
+	    }
+	}
+
+	@Test
+	void testMostrarCasellaValid() {
+	    Tauler tauler = new Tauler(5, 5, 0);
+	    tauler.mostrarCasella(2, 2);
+	    assertTrue(tauler.casellaVisible(2, 2));
+	}
+	
+	@Test
+	void testMostrarCasellaOutOfBounds() {
+	    Tauler tauler = new Tauler(5, 5, 0);
+	    assertThrows(AssertionError.class, () -> tauler.mostrarCasella(5, 2), "Coordenada x fuera de rango");
+	    assertThrows(AssertionError.class, () -> tauler.mostrarCasella(2, 5), "Coordenada y fuera de rango");
+	}
 	
 	
+	@Test
+	void testAddBombaValid2() {
+	    Tauler tauler = new Tauler(5, 5, 0);
+	    tauler.addBomba(1, 1);
+	    assertTrue(tauler.isBomb(1, 1));
+	}
+	
+	@Test
+	void testAddBombaOutOfBounds() {
+	    Tauler tauler = new Tauler(5, 5, 0);
+	    assertThrows(AssertionError.class, () -> tauler.addBomba(-1, 0), "Coordenada x fuera de rango");
+	    assertThrows(AssertionError.class, () -> tauler.addBomba(0, -1), "Coordenada y fuera de rango");
+	}
+
+	@Test
+	void testAddBombaAlreadyBomb() {
+	    Tauler tauler = new Tauler(5, 5, 0);
+	    tauler.addBomba(1, 1);
+	    assertThrows(AssertionError.class, () -> tauler.addBomba(1, 1), "La casilla ya contiene una bomba");
+	}
 	
 	
+	@Test
+	void testSetRandomBombsValid() {
+	    Tauler tauler = new Tauler(5, 5, 10);
+	    tauler.setRandomBombs();
+	    assertEquals(10, tauler.getBombCount());
+	}
 	
+	@Test
+	void testInvariantsAfterOperations() {
+	    Tauler tauler = new Tauler(5, 5, 10);
+	    tauler.setRandomBombs();
+	    tauler.mostrarCasella(2, 2);
+	    assertTrue(tauler.casellaVisible(2, 2));
+	    assertTrue(tauler.getCasellesMostrades() + tauler.getBombCount() <= tauler.getAmplada() * tauler.getAltura());
+	}
 	
+	@Test
+	void testAddBombaPrecondicionXValida() {
+	    Tauler tauler = new Tauler(5, 5, 0);
+	    tauler.addBomba(2, 2); // Coordenada válida
+	    assertTrue(tauler.isBomb(2, 2), "La casilla (2, 2) debe contener una bomba.");
+	}
+
+	@Test
+	void testAddBombaPrecondicionXInvalida() {
+	    Tauler tauler = new Tauler(5, 5, 0);
+	    assertThrows(AssertionError.class, () -> tauler.addBomba(-1, 2), "Coordenada x fuera de rango");
+	    assertThrows(AssertionError.class, () -> tauler.addBomba(5, 2), "Coordenada x fuera de rango");
+	}
 	
-	
-	
+
 	
 }
