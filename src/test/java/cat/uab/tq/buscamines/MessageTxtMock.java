@@ -35,5 +35,7 @@ public class MessageTxtMock extends MessageTxt{
         output.setLength(0);
     }
 
+
+	
 }
 
