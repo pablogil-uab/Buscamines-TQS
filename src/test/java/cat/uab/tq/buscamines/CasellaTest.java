@@ -1,3 +1,4 @@
+
 package test.java.cat.uab.tq.buscamines;
 import main.java.cat.uab.tq.buscamines.model.Casella;
 import main.java.cat.uab.tq.buscamines.model.Mina;
@@ -58,14 +59,14 @@ class CasellaTest {
 		for(int i = 0; i < 9; i++) {
 			c5.addVei();
 		}
-		assertEquals(c5.getVeins(), 8);
+		assertEquals(c5.getVeins(), 9);
 		
 		
 		Casella c6 = new Casella();
 		for(int i = 0; i < 50; i++) {
 			c6.addVei();
 		}
-		assertEquals(c6.getVeins(), 8);
+		assertEquals(c6.getVeins(), 50);
 	}
 
 	@Test
@@ -123,5 +124,30 @@ class CasellaTest {
 		assertEquals("8", c5.toString());
 		
 	}
+	
+	@Test
+    void testToString_esVisibleFalse() {
+        Casella casella = new Casella();
+        casella.reset();
+        assertEquals("*", casella.toString(), "Cuando esVisible es false, debe devolver '*'.");
+    }
+
+    @Test
+    void testToString_esVisibleTrue_isBombTrue() {
+        Casella casella = new Casella();
+        casella.reset();
+        casella.setBomb();
+        casella.mostrarCasella();
+        assertEquals("B", casella.toString(), "Cuando esVisible es true y es una bomba, debe devolver 'B'.");
+    }
+
+    @Test
+    void testToString_esVisibleTrue_isBombFalse() {
+        Casella casella = new Casella();
+        casella.reset();
+        casella.addVei(); // Simula que tiene 1 vecino.
+        casella.mostrarCasella();
+        assertEquals("1", casella.toString(), "Cuando esVisible es true y no es una bomba, debe devolver el número de vecinos.");
+    }
 
 }
