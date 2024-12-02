@@ -124,4 +124,29 @@ class CasellaTest {
 		
 	}
 
+	@Test
+    void testToString_esVisibleFalse() {
+        Casella casella = new Casella();
+        casella.reset();
+        assertEquals("*", casella.toString(), "Cuando esVisible es false, debe devolver '*'.");
+    }
+
+    @Test
+    void testToString_esVisibleTrue_isBombTrue() {
+        Casella casella = new Casella();
+        casella.reset();
+        casella.setBomb();
+        casella.mostrarCasella();
+        assertEquals("B", casella.toString(), "Cuando esVisible es true y es una bomba, debe devolver 'B'.");
+    }
+
+    @Test
+    void testToString_esVisibleTrue_isBombFalse() {
+        Casella casella = new Casella();
+        casella.reset();
+        casella.addVei(); // Simula que tiene 1 vecino.
+        casella.mostrarCasella();
+        assertEquals("1", casella.toString(), "Cuando esVisible es true y no es una bomba, debe devolver el número de vecinos.");
+    }
+
 }
