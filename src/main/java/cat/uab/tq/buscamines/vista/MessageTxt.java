@@ -1,16 +1,19 @@
-package Vista;
+package view;
 
 public class MessageTxt {
-
-    public void presentacio() {
-        System.out.println("¡Bienvenido al juego del Buscaminas!");
+	public MessageTxt() {}
+	
+	public void presentacio(){
+    	System.out.println("Benvingut al joc del buscamines!\n");
     }
 
-    public void victory() {
-        System.out.println("¡Felicidades, has ganado!");
-    }
+	public void victory() {
+		// TODO Auto-generated method stub
+		System.out.println("Victoria!! Has conseguit revelar totes les caselles sense bombes.\n");
+	}
 
-    public void bomb() {
-        System.out.println("¡Boom! Has pisado una mina. Fin del juego.");
-    }
+	public void bomb() {
+		// TODO Auto-generated method stub
+		System.out.println("Oops.. Has topat amb una bomba :(\n" + "GAME OVER\n");
+	}
 }
