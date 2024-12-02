@@ -1,59 +1,54 @@
-package Vista;
-
-import Model.Tauler;
-
+package view;
+import model.Tauler;
 
 public class VistaTauler {
-
-    public VistaTauler() { }
-
-    public void mostrarTablero(Tauler tablero) {
-        for (int y = 0; y < tablero.getAltura(); y++) {
-            for (int x = 0; x < tablero.getAnchura(); x++) {
-                System.out.print(tablero.obtenerCasilla(x, y) + " ");
+	
+	
+	public VistaTauler() { }
+	
+	public void printTauler(Tauler tauler) {
+        for(int y = 0; y < tauler.getAltura(); y++) {
+            for(int x = 0; x < tauler.getAmplada(); x++) {
+                System.out.print(tauler.getCasella(x, y) + " ");
             }
-            System.out.println(" |" + y);
+            System.out.println(" |"+ y);
         }
-
-        imprimirLineasInferiores(tablero);
-        imprimirNumerosInferiores(tablero);
-    }
-
-    private void imprimirLineasInferiores(Tauler tablero) {
-        for (int x = 0; x < tablero.getAnchura(); x++) {
-            System.out.print("_ ");
+        
+        for(int x = 0; x < tauler.getAmplada(); x++) {
+        	System.out.print("_ ");
         }
         System.out.println();
-    }
-
-    private void imprimirNumerosInferiores(Tauler tablero) {
-        for (int x = 0; x < tablero.getAnchura(); x++) {
-            System.out.print(x + " ");
+        
+        for(int x = 0; x < tauler.getAmplada(); x++) {
+        	System.out.print(x);
+        	if(x+1 < 10) {
+        		System.out.print(" ");
+        	}
         }
         System.out.println("\n");
+        
     }
+	
+	public boolean validarPosicio(Tauler tauler, int x, int y) {
+		if((x < 0 || x >= tauler.getAmplada()) || (y < 0 || y >= tauler.getAltura())) {
+			System.out.println("Esta casilla no es correcta!\n");
+			return false;
+		}
+		
+		if(tauler.casellaVisible(x, y)) {
+			System.out.println("Esta casilla ya esta destapada!\n");
+			return false;
+		}
+		
+		return true; 
+	}
+	
+	public void printStatus(Tauler tauler) {
+		int a = tauler.getCasellesMostrades();
+		int b = tauler.getBombCount();
+		int c = tauler.getAmplada() * tauler.getAltura();
+		System.out.println(a + " caselles mostrades de " + (c-b) + 
+				" caselles segures per desbloquejar.\n");
+	}
 
-    public boolean validarMovimiento(Tauler tablero, int x, int y) {
-        if (!estaDentroDelTablero(tablero, x, y)) {
-            System.out.println("Movimiento fuera del tablero!\n");
-            return false;
-        }
-
-        if (tablero.esCasillaVisible(x, y)) {
-            System.out.println("Esta casilla ya está destapada!\n");
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean estaDentroDelTablero(Tauler tablero, int x, int y) {
-        return x >= 0 && x < tablero.getAnchura() && y >= 0 && y < tablero.getAltura();
-    }
-
-    public void mostrarEstado(Tauler tablero) {
-        int mostradas = tablero.getCasillasMostradas();
-        int seguras = tablero.getTotalSeguras();
-        System.out.println(mostradas + " casillas mostradas de " + seguras + " disponibles.\n");
-    }
 }
