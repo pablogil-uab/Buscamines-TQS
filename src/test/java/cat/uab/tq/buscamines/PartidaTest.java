@@ -109,4 +109,43 @@ class PartidaTest {
 		verify(mockInput, times(0)).configurarPartida(anyInt(), anyInt(), anyInt(), 
 				anyInt(), anyInt(), anyInt());
 	}
+
+	@Test
+	void testConfigurarPartidaNotNull() {
+		
+		when(mockInput.configurarPartida(anyInt(), anyInt(), anyInt(), anyInt(), 
+				anyInt(), anyInt())).thenReturn(new int[]{0, 0, 0});
+		
+		partida = new Partida(mockMessage, mockInput, mockVista);
+		partida.configurarPartida();
+		
+		verify(mockInput, atLeastOnce()).configurarPartida(anyInt(), anyInt(), anyInt(), 
+				anyInt(), anyInt(), anyInt());
+	}
+	
+	@Test
+	void testValidarInputInvalid() {
+		when(mockInput.readInput()).thenReturn(new int[] {0,0});
+		when(mockVista.validarPosicio(any(Tauler.class), anyInt(), anyInt()))
+			.thenReturn(false).thenReturn(true);//introduce un valor valido a la segunda
+		
+		partida.validarInput();
+		
+		verify(mockInput, times(2)).readInput();
+		verify(mockVista, times(2)).validarPosicio(any(Tauler.class), anyInt(), anyInt());
+	}
+	
+	@Test
+	void testValidarInputValid() {
+		when(mockInput.readInput()).thenReturn(new int[] {0,0});
+		when(mockVista.validarPosicio(any(Tauler.class), anyInt(), anyInt())).thenReturn(true);//introduce un valor valido a la segunda
+		
+		partida.validarInput();
+		
+		verify(mockInput, times(1)).readInput();
+		verify(mockVista, times(1)).validarPosicio(any(Tauler.class), anyInt(), anyInt());
+	}
+
+}
+
 	
