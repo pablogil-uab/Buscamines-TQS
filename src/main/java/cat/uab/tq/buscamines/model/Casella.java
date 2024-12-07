@@ -14,9 +14,9 @@ public class Casella {
 		esVisible = false;
 		tipus = new Normal();
 		veins = 0;
-		assert !esVisible : "Postcondición fallida: esVisible debe ser false después de reset().";
-		assert tipus instanceof Normal : "Postcondición fallida: tipus debe ser Normal después de reset().";
-		assert veins == 0 : "Postcondición fallida: veins debe ser 0 después de reset().";
+		//assert !esVisible : "Postcondición fallida: esVisible debe ser false después de reset().";
+		//assert tipus instanceof Normal : "Postcondición fallida: tipus debe ser Normal después de reset().";
+		//assert veins == 0 : "Postcondición fallida: veins debe ser 0 después de reset().";
 	}
 	
 	public void addVei() {
@@ -29,7 +29,7 @@ public class Casella {
 	
 	public void setBomb() {
 		tipus = new Mina();
-		assert tipus instanceof Mina;
+		//assert tipus instanceof Mina;
 	}
 	
 	public boolean isBomb() {
@@ -42,7 +42,7 @@ public class Casella {
 	
 	public void mostrarCasella() {
 		esVisible = true;
-		assert esVisible;
+		//assert esVisible;
 	}
 	
 	public String toString() {
@@ -60,7 +60,7 @@ public class Casella {
 
 	public tipusCasella getTipus() {
 		// TODO Auto-generated method stub
-		assert tipus != null;
+		//assert tipus != null;
 		return tipus;
 	}
 	

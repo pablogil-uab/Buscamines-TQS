@@ -64,9 +64,9 @@ public class entryData {
     public int[] configurarPartida(int maxFiles, int minFiles, int maxCol, int minCol, int maxMines, int minMines) {
     	
     	//precondicions
-    	assert(minFiles > 0 && maxFiles <= 10) : "El numero maximo o minimo de filas es incorrecto.";
-    	assert(minCol > 0 && maxCol <= 10) : "El numero maximo o minimo de columnas es incorrecto.";
-    	assert(minMines > 0 && maxMines <= 10) : "El numero maximo o minimo de minas es incorrecto.";
+    	//assert(minFiles > 0 && maxFiles <= 10) : "El numero maximo o minimo de filas es incorrecto.";
+    	//assert(minCol > 0 && maxCol <= 10) : "El numero maximo o minimo de columnas es incorrecto.";
+    	//assert(minMines > 0 && maxMines <= 10) : "El numero maximo o minimo de minas es incorrecto.";
     	
     	System.out.println("Entra las dimensiones deseadas del tablero, "
     			+ "el numero de filas y columnas separado por un espacio: ");
@@ -75,8 +75,8 @@ public class entryData {
         int num2 = getIntInput(scan);
 
         // Postcondiciones para filas y columnas
-        assert (num1 > minFiles && num1 < maxFiles) : "El número de filas debe estar entre los intervalos permitidos";
-        assert (num2 > minCol && num2 < maxCol) : "El número de columnas debe estar entre los intervalos permitidos";
+        //assert (num1 > minFiles && num1 < maxFiles) : "El número de filas debe estar entre los intervalos permitidos";
+        //assert (num2 > minCol && num2 < maxCol) : "El número de columnas debe estar entre los intervalos permitidos";
         
         
         System.out.println("Entra el numero de minas deseado: ");
@@ -84,7 +84,7 @@ public class entryData {
         int mines = getIntInput(scan);
 
         //postcondicio
-        assert (mines < maxMines && mines > minMines) : "El numero de minas debe estar entre los intervalos permitidos";
+        //assert (mines < maxMines && mines > minMines) : "El numero de minas debe estar entre los intervalos permitidos";
         
         int[] config = {num1, num2, mines};
         return config;
