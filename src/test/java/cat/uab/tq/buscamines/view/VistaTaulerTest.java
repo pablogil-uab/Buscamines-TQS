@@ -32,7 +32,7 @@ class VistaTaulerTest {
 		System.setOut(flow);
         String salida = out.toString().trim();
 		
-		assertEquals("* * * * * * * * * *  |0\r\n"
+		assertEquals("* * * * * * * * * *  |0 \r\n"
 				+ "* * * * * * * * * *  |1\r\n"
 				+ "* * * * * * * * * *  |2\r\n"
 				+ "* * * * * * * * * *  |3\r\n"
