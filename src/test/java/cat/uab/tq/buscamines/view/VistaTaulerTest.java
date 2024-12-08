@@ -1,4 +1,4 @@
-package cat.uab.tq.buscamines.view;
+package cat.uab.tq.buscamines.view; 
 import org.junit.jupiter.api.Test;
 
 import cat.uab.tq.buscamines.model.MockTauler;
