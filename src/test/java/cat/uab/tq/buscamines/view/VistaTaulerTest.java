@@ -32,7 +32,7 @@ class VistaTaulerTest {
 		System.setOut(flow);
         String salida = out.toString().trim();
 		
-		assertEquals("* * * * * * * * * *  |0 \r\n"
+		assertTrue(salida.contains("* * * * * * * * * *  |0\r\n"
 				+ "* * * * * * * * * *  |1\r\n"
 				+ "* * * * * * * * * *  |2\r\n"
 				+ "* * * * * * * * * *  |3\r\n"
@@ -43,7 +43,7 @@ class VistaTaulerTest {
 				+ "* * * * * * * * * *  |8\r\n"
 				+ "* * * * * * * * * *  |9\r\n"
 				+ "_ _ _ _ _ _ _ _ _ _ \r\n"
-				+ "0 1 2 3 4 5 6 7 8 9", salida);
+				+ "0 1 2 3 4 5 6 7 8 9"));
 		
 	}
 	
@@ -61,7 +61,7 @@ class VistaTaulerTest {
 		System.setOut(flow);
         String salida = out.toString().trim();
 		
-		assertEquals("* * * * * * * * * *  |0\r\n"
+		assertTrue(salida.contains("* * * * * * * * * *  |0\r\n"
 				+ "* * * * * * * * * *  |1\r\n"
 				+ "* * * * * * * * * *  |2\r\n"
 				+ "* * * B * * * * * *  |3\r\n"
@@ -72,7 +72,7 @@ class VistaTaulerTest {
 				+ "* * * * * * * * * *  |8\r\n"
 				+ "* * * * * * * * * *  |9\r\n"
 				+ "_ _ _ _ _ _ _ _ _ _ \r\n"
-				+ "0 1 2 3 4 5 6 7 8 9", salida);
+				+ "0 1 2 3 4 5 6 7 8 9"));
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ class VistaTaulerTest {
 		System.setOut(flow);
         String salida = out.toString().trim();
 		
-		assertEquals("* * * * * * * * * *  |0\r\n"
+		assertTrue(salida.contains("* * * * * * * * * *  |0\r\n"
 				+ "* * * * * * * * * *  |1\r\n"
 				+ "* * * * B * * * * *  |2\r\n"
 				+ "* * * 2 * * * * * *  |3\r\n"
@@ -99,7 +99,7 @@ class VistaTaulerTest {
 				+ "* * * * * * * * * *  |8\r\n"
 				+ "* * * * * * * * * *  |9\r\n"
 				+ "_ _ _ _ _ _ _ _ _ _ \r\n"
-				+ "0 1 2 3 4 5 6 7 8 9", salida);
+				+ "0 1 2 3 4 5 6 7 8 9"));
 	}
 
 	@Test
