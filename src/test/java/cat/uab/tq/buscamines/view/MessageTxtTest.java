@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import cat.uab.tq.buscamines.vista.MessageTxt;
 
-;
 
 class MessageTxtTest {
 	private ByteArrayOutputStream out = new ByteArrayOutputStream();
