@@ -20,7 +20,9 @@ public class Casella {
 	}
 	
 	public void addVei() {
-		veins++;
+		if(veins < 8) {
+			veins++;
+		}
 	}
 	
 	public int getVeins(){

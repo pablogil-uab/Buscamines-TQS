@@ -2,12 +2,20 @@ package cat.uab.tq.buscamines.view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MessageTxtMockTest {
-
-    public static void main(String[] args) {
+	
+	@Test
+    void MockTest() {
+		 // Configurar para capturar el output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        
         // Crear una instancia del mock
         MessageTxtMock mock = new MessageTxtMock();
 
@@ -21,10 +29,13 @@ public class MessageTxtMockTest {
         System.out.println("Contenido del mock:");
         System.out.println(output);
 
-        // Puedes usar assertions para validar
-        assert output.contains("Benvingut al joc del buscamines!");
-        assert output.contains("Victoria!! Has conseguit revelar totes les caselles sense bombes.");
-        assert output.contains("Oops.. Has topat amb una bomba :(");
+        // Verificar el output
+        assertTrue(output.contains("Benvingut al joc del buscamines!"));
+        assertTrue(output.contains("Victoria!! Has conseguit revelar totes les caselles sense bombes."));
+        assertTrue(output.contains("Oops.. Has topat amb una bomba :("));
+        
+     // Restaurar la salida estándar
+        System.setOut(System.out);
     }
 }
 

@@ -93,6 +93,7 @@ public class entryData {
     
     // Método auxiliar para leer un entero con un assert que valida el tipo
     private int getIntInput(Scanner scan) {
+    	//preconditions
         //assert scan.hasNextInt() : "La entrada debe ser un número entero.";
         return scan.nextInt();
     }
